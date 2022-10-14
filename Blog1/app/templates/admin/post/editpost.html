@@ -1,0 +1,225 @@
+{% extends 'admin/base.html' %}
+{% block assets %}
+  <!-- Google Font: Source Sans Pro -->
+  <link rel="stylesheet" href="/static/admin/dist/css/SourceSansPro.css">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="/static/admin/plugins/fontawesome-free/css/all.min.css">
+  <!-- daterange picker -->
+  <link rel="stylesheet" href="/static/admin/plugins/daterangepicker/daterangepicker.css">
+  <!-- iCheck for checkboxes and radio inputs -->
+  <link rel="stylesheet" href="/static/admin/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+  <!-- Bootstrap Color Picker -->
+  <link rel="stylesheet" href="/static/admin/plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css">
+  <!-- Tempusdominus Bootstrap 4 -->
+  <link rel="stylesheet" href="/static/admin/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+  <!-- Select2 -->
+  <link rel="stylesheet" href="/static/admin/plugins/select2/css/select2.min.css">
+  <link rel="stylesheet" href="/static/admin/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
+  <!-- Bootstrap4 Duallistbox -->
+  <link rel="stylesheet" href="/static/admin/plugins/bootstrap4-duallistbox/bootstrap-duallistbox.min.css">
+  <!-- BS Stepper -->
+  <link rel="stylesheet" href="/static/admin/plugins/bs-stepper/css/bs-stepper.min.css">
+  <!-- dropzonejs -->
+  <link rel="stylesheet" href="/static/admin/plugins/dropzone/min/dropzone.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="/static/admin/dist/css/adminlte.min.css">
+  <link rel="stylesheet" href="/static/admin/editormd/css/editormd.css" />
+{% endblock %}
+{% block title %}主页{% endblock %}
+{% block content %}
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1>编辑文章</h1>
+        </div>
+      </div>
+    </div><!-- /.container-fluid -->
+  </section>
+
+  <!-- Main content -->
+  <section class="content">
+    <div class="container-fluid">
+      <!-- SELECT2 EXAMPLE -->
+    <form role="form" method="post" action="">
+      <div class="card card-default">
+        <!-- /.card-header -->
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>文章名</label>
+                <!-- <input type="text" class="form-control" placeholder="请输入文章名"> -->
+                <input class="form-control" id="posttitle" name="post_title" placeholder="请输入文章名" type="text" value="">
+              </div>
+              <div class="form-group">
+                <label>简介</label>
+                <!-- <input type="text" class="form-control" placeholder="请输入简介"> -->
+                <input class="form-control" id="postdesc" name="post_desc" placeholder="请输入简介" type="text" value="">
+              </div>
+              <!-- /.form-group -->
+              <div class="form-group">
+                <label>分类</label>
+                <!-- <select class="form-control select2bs4" style="width: 100%;"> -->
+                  <select class="form-control select-category" id="postcategory" name="post_category" style="width:100%" title="分类">
+                    {% for i in category %}
+                      {% if i.id == post.postcategory %}
+                        <option value="{{ i.categoryid }}" selected="selected">{{ i.categoryname }}</option>
+                      {% else %}
+                        <option value="{{ i.categoryid }}">{{ i.categoryname }}</option>
+                      {% endif %}
+                    {% endfor %}
+                  </select>
+              </div>
+              <!-- /.form-group -->
+            </div>
+            <!-- /.col -->
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>标签</label>
+                <!-- <select class="select2bs4" multiple="multiple" data-placeholder="请选择标签"
+                        style="width: 100%;"> -->
+                        <select class="from-control select-tag" data-placeholder="请选择标签" id="posttag" multiple name="post_tag" style="width: 100%;" title="标签">
+                          {% for i in tag %}
+                            {% if i.tagid in post.posttagidlist %}
+                              <option value="{{ i.tagid }}" selected="selected">{{ i.tagname }}</option>
+                            {% else %}
+                              <option value="{{ i.tagid }}">{{ i.tagname }}</option>
+                            {% endif %}
+                          {% endfor %}
+                        </select>
+              </div>
+              <!-- /.form-group -->
+              <div class="form-group">
+                <label>图片</label>
+                <!-- <input type="text" class="form-control" placeholder="请输入图片地址"> -->
+                <input class="form-control" id="postimage" name="post_image" placeholder="请输入图片地址" type="text" value="">
+              </div>
+              <!-- /.form-group -->
+            </div>
+            <!-- /.col -->
+          </div>
+          <!-- /.row -->
+        </div>
+        <!-- /.card-body -->
+      </div>
+      <strong><h5><strong>内容</strong></h5></strong>
+      <hr>
+      <!-- <select class="test-select">
+        <option value="bj">北京</option>
+        <option value="sh">上海</option>
+      </select> -->
+      <hr>
+      </div>
+      <hr>
+      <div class="editormd" id="post">
+        <textarea>{{ editspost }}</textarea>
+      </div>
+      <input type="submit" class="btn btn-primary btn-block" placeholder="提交" id="postsubmit">
+    </form>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="/static/admin/editormd/editormd.min.js"></script>
+  <script>
+    $(document).ready(function () {
+      $("#posttitle").val("{{ post.postname }}")
+      $("#postdesc").val("{{ post.postdesc }}")
+      $("#postimage").val("{{ post.postimage | safe }}")
+    })
+  </script>
+  <script type="text/javascript">
+      var mdEditor;
+      $(function() {
+          mdEditor = editormd("post", {
+              width   : "100%",
+              height  : 900,
+              syncScrolling : "single",
+              path    : "/static/admin/editormd/lib/",
+              markdown: `{{ postcontext }}`
+          });
+      });
+      $("#postsubmit").click(function() {
+          var post_title = $("#posttitle").val();
+          var post_desc = $("#postdesc").val();
+          var post_category = $("#postcategory").val();
+          var post_tag = $("#posttag").val();
+          var post_image = $("#postimage").val();
+          var post_content = mdEditor.getMarkdown();
+          var post_id = {{ post.postid }};
+          $.ajax({
+              type: "POST",
+              url: "/{{ adminsite.secret_route }}/post-manager/post/editpost/",
+              contentType: 'application/json;charset=UTF-8',
+              data: JSON.stringify({
+                  title: post_title,
+                  desc: post_desc,
+                  category: post_category,
+                  tag: post_tag,
+                  image: post_image,
+                  content: post_content,
+                  postid : post_id
+              }),
+              success: function(data) {
+                  jdata = JSON.parse(data)
+                  if (jdata.code == 1) {
+                      alert("即将跳转")
+                      window.location.href = "/{{ adminsite.secret_route }}/post-manager/post/1/";
+                  } else {
+                      let errorstr = "这是服务器捕获的异常：" + jdata.e
+                      alert("出现问题！请刷新页面或重新提交。如还是出错请检查服务器的日志上是否有/{{ SECRET_ROUTE }}/post-manager/post/addpost/是否出现了400或500问题，并添加try语句进行检查。");
+                      alert(errorstr)
+                  }
+              }
+          });
+      });
+  </script>
+    </div>
+    <!-- /.container-fluid -->
+    </form>
+                  </div>
+                </div>
+          </div>
+          <!-- /.card -->
+        </div>
+        <!-- /.col (right) -->
+      </div>
+  </section>
+  <!-- /.content -->
+</div>
+{% endblock %}
+{% block date %}
+<!-- jQuery -->
+<script src="/static/admin/plugins/jquery/jquery.min.js"></script>
+<!-- Bootstrap 4 -->
+<script src="/static/admin/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- Select2 -->
+<script src="/static/admin/plugins/select2/js/select2.js"></script>
+<script src="/static/admin/plugins/select2/js/i18n/zh-CN.js"></script>
+<!-- Bootstrap4 Duallistbox -->
+<script src="/static/admin/plugins/bootstrap4-duallistbox/jquery.bootstrap-duallistbox.min.js"></script>
+<!-- InputMask -->
+<script src="/static/admin/plugins/moment/moment.min.js"></script>
+<script src="/static/admin/plugins/inputmask/jquery.inputmask.min.js"></script>
+<!-- AdminLTE App -->
+<script src="/static/admin/dist/js/adminlte.min.js"></script>
+<script>
+  $(function () {
+    //Initialize Select2 Elements
+    $('.select-tag').select2({
+      theme: 'bootstrap4',
+      language: 'zh-CN',
+      placeholder: '请选择标签',
+      allowClear: true,
+      multiple: true
+
+    });
+    $('.select-category').select2({
+      theme: 'bootstrap4',
+      language: 'zh-CN',
+      placeholder: '请选择分类'
+    })
+    $('.test-select').select2()
+  });
+</script>
+{% endblock %}

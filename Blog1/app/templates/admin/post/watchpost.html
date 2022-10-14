@@ -1,0 +1,55 @@
+{% extends 'admin/base.html' %}
+{% block title %}主页{% endblock %}
+{% block content %}
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-wrapper">
+      <section class="content">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-12 col-sm-6">
+              <div class="card card-primary card-outline card-tabs">
+                <div class="card-header p-0 pt-1 border-bottom-0">
+                  <ul class="nav nav-tabs" id="custom-tabs-three-tab" role="tablist">
+                    <li class="nav-item">
+                      <a class="nav-link active" id="custom-tabs-three-home-tab" data-toggle="pill" href="#custom-tabs-three-home" role="tab" aria-controls="custom-tabs-three-home" aria-selected="true">信息</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" id="custom-tabs-three-profile-tab" data-toggle="pill" href="#custom-tabs-three-profile" role="tab" aria-controls="custom-tabs-three-profile" aria-selected="false">内容</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" id="custom-tabs-three-messages-tab" data-toggle="pill" href="#custom-tabs-three-messages" role="tab" aria-controls="custom-tabs-three-messages" aria-selected="false">标签与分类</a>
+                    </li>
+                  </ul>
+                </div>
+                <div class="card-body">
+                  <div class="tab-content" id="custom-tabs-three-tabContent">
+                    <div class="tab-pane fade show active" id="custom-tabs-three-home" role="tabpanel" aria-labelledby="custom-tabs-three-home-tab">
+                       <h5>{{ blog.bdesc }}</h5>
+                       <h5>{{ blog.bdate }}</h5>
+                    </div>
+                    <div class="tab-pane fade" id="custom-tabs-three-profile" role="tabpanel" aria-labelledby="custom-tabs-three-profile-tab">
+                       {{ blog.bcontents }}
+                    </div>
+                    <div class="tab-pane fade" id="custom-tabs-three-messages" role="tabpanel" aria-labelledby="custom-tabs-three-messages-tab">
+                      <h5>标签:</h5>
+                      {{ for tag in blog.btag }}
+                      <button type="button" class="btn btn-block btn-outline-primary btn-sm"><a href="/{{ adminsite.secret_key }}/tag-manager/tag/id/{{ tag.id }}"></a></button>
+                      {{ endfor }}
+                      <h5>分类</h5>
+                      <button type="button" class="btn btn-block btn-outline-primary btn-sm"><a href="/{{ adminsite.secret_key }}/category-manager/category/id/{{ blog.bcategory.id }}"></a></button>
+                    </div>
+                  </div>
+                </div>
+                <!-- /.card -->
+              </div>
+            </div>
+            
+          </div>
+        </div>
+      </section>
+      <!-- /.content -->
+    </div>
+  <!-- /.content-wrapper -->
+{% endblock %}

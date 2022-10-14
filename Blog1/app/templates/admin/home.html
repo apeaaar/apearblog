@@ -1,0 +1,83 @@
+{% extends 'admin/base.html' %}
+{% block title %}主页{% endblock %}
+{% block content %}
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0">主页</h1>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+    <div class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-lg-6">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">内容管理</h5>
+                <p class="card-text">
+                  网站的文章管理。
+                </p>
+                <a href="/{{ adminsite.secret_route }}/post-manager/" class="btn btn-primary">管理内容</a>
+              </div>
+            </div>
+            <div class="card card-primary card-outline">
+              <div class="card-body">
+                <h5 class="card-title">标签管理</h5>
+                <p class="card-text">
+                  管理你的标签。
+                </p>
+                <a href="/{{ adminsite.secret_route }}/tag-manager/" class="btn btn-primary">管理标签</a>
+              </div>
+            </div><!-- /.card -->
+          </div>
+          <!-- /.col-md-6 -->
+          <div class="col-lg-6">
+            <div class="card">
+              <div class="card-header">
+                <h5 class="m-0">分类管理</h5>
+              </div>
+              <div class="card-body">
+                <h6 class="card-title">不同与标签，</h6>
+                <p class="card-text">如“flask”和“fastapi”是两个标签，但他们都属于“Python”这一类。</p>
+                <a href="/{{ adminsite.secret_route }}/category-manager/" class="btn btn-primary">去管理！</a>
+              </div>
+            </div>
+            <div class="card card-primary card-outline">
+              <div class="card-header">
+                <h5 class="m-0">管理员管理</h5>
+              </div>
+              <div class="card-body">
+                <h6 class="card-title">网站管理员</h6>
+                <p class="card-text">在此控制面板上管理面板所涉及的东西。</p>
+                <a href="{{ adminsite.secret_route }}/admin/" class="btn btn-primary">去管理！</a>
+              </div>
+            </div>
+            <div class="card card-primary card-outline">
+              <div class="card-header">
+                <h5 class="m-0">其他...</h5>
+              </div>
+              <div class="card-body">
+                <h6 class="card-title">网站杂七杂八的东西</h6>
+                <p class="card-text">比如文章总数，以及别的。</p>
+                <a href="{{ adminsite.secret_route }}/admin/" class="btn btn-primary">去管理！</a>
+              </div>
+            </div>
+          </div>
+          <!-- /.col-md-6 -->
+        </div>
+        <!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+{% endblock %}

@@ -1,0 +1,51 @@
+{% extends 'admin/base.html' %}
+{% block title %}管理员管理{% endblock %}
+{% block content %}
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <div class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1 class="m-0">管理员管理</h1>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Main content -->
+  <div class="content">
+    <div class="container-fluid">
+      <div class="row">
+        <!-- 一个表格 -->
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card card-primary card-outline">
+              <div class="card-header">
+                <h3 class="card-title">
+                  <i class="fas fa-edit"></i>
+                  管理员管理
+                </h3>
+              </div>
+              <div class="card-body pad table-responsive">
+                <p>管理员列表</p>
+                <table class="table table-bordered text-center">
+                  <tbody>
+                  {{ for i in AdministratorList }}
+                  <tr>
+                    <td>
+                      <button type="button" class="btn btn-block btn-outline-primary"><a href="/{{ adminsite.secret_route }}/admin-manager/admin/id/{{ i.id }}">{{ i.name }}</a></button>
+                    </td>
+                  </tr>
+                  {{ endfor }}
+                </tbody></table>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- 表格结束 -->
+      </div>
+      <button type="button" class="btn btn-block btn-outline-primary"><a href="/{{ adminsite.secret_route }}/admin-manager/admin/create/">创建分类</a></button>
+    </div>
+  </div>
+</div>
+{% endblock %}

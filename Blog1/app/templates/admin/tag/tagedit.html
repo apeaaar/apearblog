@@ -1,0 +1,64 @@
+{% extends 'admin/base.html' %}
+{% block title %}标签编辑{% endblock %}
+{% block content %}
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <div class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1 class="m-0">标签编辑</h1>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Main content -->
+  <div class="content">
+    <div class="container-fluid">
+      <div class="row">
+        <!-- 卡片开始 -->
+        <div class="card card-primary">
+          <div class="card-header">
+            <h3 class="card-title">标签编辑</h3>
+            <h3 class="card-title">TagID:{{ tag.tagid }}</h3>
+            <h3 class="card-title">标签名:{{ tag.tagname }}</h3>
+          </div>
+          <!-- /.card-header -->
+          <!-- form start -->
+            <div class="card-body">
+              <div class="form-group">
+                <label for="tagNameEdit">标签名</label>
+                <input type="text" class="form-control" id="tagNameEdit" placeholder="标签名">
+              </div>
+            </div>
+            <div class="card-footer">
+              <button type="submit" class="btn btn-primary" id="submit">提交</button>
+            </div>
+          <script>
+            $("#submit").click(function () {
+              let edittagname = $("#tagNameEdit").val()
+              $.ajax({
+                type: "POST",
+                contentType: "application/json;charset=UTF-8",
+                url: "/{{ adminsite.secret_route }}/tag-manager/tag/edit/{{ tag.tagid }}",
+                data: JSON.stringify({
+                  tagname: edittagname
+                }),
+                success: function (data) {
+                  jdata = JSON.parse(data)
+                  if (jdata.code==1) {
+                    alert("即将跳转")
+                    window.location.href = "/{{ adminsite.secret_route }}/tag-manager/"
+                  } else {
+                    alert("出问题了！！")
+                  }
+                }
+              })
+            })
+          </script>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

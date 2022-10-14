@@ -1,0 +1,12 @@
+# hello! If you would like to crawl this site contact us at xiaohongniu837@gmail.com
+# 混蛋，你要爬我的站提前说一声，用邮箱！在上面！
+
+User-agent: *
+Disallow: /xauth*
+Disallow: /admin*
+Disallow: /xadmin*
+Disallow: /xxadmin*
+Disallow: /xxxadmin*
+Disallow: /xxxxadmin*
+Disallow: /xxxxxadmin*
+Disallow: /xxxxxxadmin*

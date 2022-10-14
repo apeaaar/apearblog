@@ -1,0 +1,79 @@
+{% extends 'admin/base.html' %}
+{% block title %}标签编辑{% endblock %}
+{% block content %}
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <div class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1 class="m-0">创建分类</h1>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Main content -->
+  <div class="content">
+    <div class="container-fluid">
+      <div class="row">
+        <!-- 卡片开始 -->
+        <div class="card card-primary">
+          <div class="card-header">
+            <h3 class="card-title">添加分类</h3>
+          </div>
+          <!-- /.card-header -->
+          <!-- form start -->
+            <div class="card-body">
+              <div class="form-group">
+                <label for="tagNameEdit">分类名</label>
+                <input type="text" class="form-control" id="cateName" placeholder="分类名">
+              </div>
+            </div>
+            <div class="card-footer">
+              <button type="submit" class="btn btn-primary" id="submit">提交</button>
+            </div>
+            <script>
+              $("#submit").click(function () {
+                let catename = $("#catename").val()
+                $.ajax({
+                  method: "POST",
+                  url: "/{{ secret_route }}/category-manager/category/new/",
+                  contentType: "application/json;charset=UTF-8",
+                  data: JSON.stringify({
+                    catename: catename
+                  }),
+                  success: function (jdata) {
+                    data = JSON.parse(jdata);
+                    if (data.code==1) {
+                      alert("即将跳转")
+                      window.location.href = "/{{ adminsite.secret_route }}/"
+                    } else {
+                      alert("出问题了！！")
+                    }
+                }
+              })})
+              let catename = $("#catename").val();
+              $.ajax({
+                method: "POST",
+                url: "/{{ secret_route }}/category-manager/category/new/",
+                contentType: "application/json;charset=UTF-8",
+                data: JSON.stringify({
+                  catename: catename
+                }),
+                success: function (jdata) {
+                  data = JSON.parse(jdata);
+                  if (data.code==1) {
+                    alert("即将跳转")
+                    window.location.href = "/{{ adminsite.secret_route }}/"
+                  } else {
+                    alert("出问题了！！")
+                  }
+                }
+              });
+            </script>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

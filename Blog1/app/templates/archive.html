@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+{% block title %}归档 | {% endblock %}
+{% block banner %}
+    <div id="page" class="carousel carousel-slider center index-cover" data-indicators="true" style="margin-top: -64px;">
+    <div class="carousel-item red white-text bg-cover about-cover">
+        <div class="container">
+            {% include 'banner.html' %}
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block contents %}
+    <main class="content" class="col s12 m12 l9">
+    <article id="articles" class="container articles">
+        <div class="row article-row">
+            {% for article in all_articles.object_list %}
+            <div class="article col s12 m6 l4" data-aos="zoom-in">
+                <div class="card">
+                    <a href="/article/id/{{ article.bid }}">
+                        <div class="card-image">
+                            <img src="{{ article.bimg }}" class="responsive-img" alt="{{ article.title }}">
+                            <span class="card-title">{{ article.btitle }}</span>
+                        </div>
+                    </a>
+                    <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            {{ article.bdesc }}
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>{{ article.bdate }}
+                            </span>
+                            <span class="publish-author">
+                                <i class="fas fa-bookmark fa-fw icon-category"></i>
+                                <a href="{{ SITE_URL }}/category/id/{{ article.bcategory.cateid }}" class="post-category">
+                                    {{ article.bcategory.catename }}
+                                </a>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="card-action article-tags">
+                        {% for btag in article.btag %}
+                        <a href="/tag/id/{{ btag.tagid }}">
+                            <span class="chip tag-color">{{ btag.tagname }}</span>
+                        </a>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </article>
+</main>
+{% endblock %}
+
+{% block pagination %}
+<div class="container paging">
+    <div class="row">
+        <div class="col s6 m4 l4">
+            {% if all_articles.has_previous %}
+            <a href="{{ SITE_URL }}/archive/page/{{ all_articles.nowsnumber - 1 }}" class="left btn-floating btn-large waves-effect waves-light left-color">
+            {% else %}
+            <a class="left btn-floating btn-large disabled">
+            {% endif %}
+                <i class="fas fa-angle-left"></i>
+            </a>
+        </div>
+
+        <div class="page-info col m4 l4 hide-on-small-only">
+            <div class="center-align b-text-gray">{{ all_articles.nowsnumber }} / {{ all_articles.blogallpages }}</div>
+        </div>
+        <div class="col s6 m4 l4">
+            {% if all_articles.has_next %}
+            <a href="{{ SITE_URL }}/archive/page/{{ all_articles.nowsnumber + 1 }}" class="right btn-floating btn-large waves-effect waves-light right-color">
+            {% else%}
+            <a class="right btn-floating btn-large disabled">
+            {% endif %}
+                <i class="fas fa-angle-right"></i>
+            </a>
+        </div>
+
+    </div>
+</div>
+    {% endblock %}

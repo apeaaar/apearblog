@@ -1,0 +1,54 @@
+{% extends 'admin/base.html' %}
+{% block title %}分类管理{% endblock %}
+{% block content %}
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <div class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1 class="m-0">分类管理</h1>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Main content -->
+  <div class="content">
+    <div class="container-fluid">
+      <div class="row">
+        <!-- 一个表格 -->
+        <div class="row">
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th>序号</th>
+                <th>分类名</th>
+                <th>日期</th>
+                <th>操作</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for i in categorylist %}
+              <tr>
+                <th scope="row">{{ i.categoryid }}</th>
+                <td>{{ i.categoryname }}</td>
+                <td>
+                  <h6>日期：{{ i.categorytime }}</h6>
+                </td>
+                <td>
+                  <a href="/{{ adminsite.secret_route }}/category-manager/category/{{ i.categoryid }}/"><button type="button" class="btn btn-block btn-info btn-xs">详情</button></a>
+                  <a href="/{{ adminsite.secret_route }}/category-manager/category/delete/{{ i.categoryid }}/"><button type="button" class="btn btn-block btn-danger btn-xs">删除</button></a>
+                  <a href="/{{ adminsite.secret_route }}/category-manager/category/edit/{{ i.categoryid }}/"><button type="button" class="btn btn-block btn-primary btn-xs">编辑</button></a>
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+        <!-- 表格结束 -->
+      </div>
+      <button type="button" class="btn btn-block btn-outline-primary"><a href="/{{ adminsite.secret_route }}/category-manager/category/new/">创建分类</a></button>
+    </div>
+  </div>
+</div>
+{% endblock %}

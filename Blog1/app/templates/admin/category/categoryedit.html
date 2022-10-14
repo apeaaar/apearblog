@@ -1,0 +1,62 @@
+{% extends 'admin/base.html' %}
+{% block title %}分类编辑{% endblock %}
+{% block content %}
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <div class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1 class="m-0">标签编辑</h1>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Main content -->
+  <div class="content">
+    <div class="container-fluid">
+      <div class="row">
+        <!-- 卡片开始 -->
+        <div class="card card-primary">
+          <div class="card-header">
+            <h3 class="card-title">分类编辑</h3>
+            <h3 class="card-title">分类ID:{{ category.cateid }}</h3>
+            <h3 class="card-title">分类名:{{ category.catename }}</h3>
+          </div>
+          <!-- /.card-header -->
+          <!-- form start -->
+            <div class="card-body">
+              <div class="form-group">
+                <label for="categoryNameEdit">分类名</label>
+                <input type="text" class="form-control" id="categoryNameEdit" placeholder="分类名">
+              </div>
+            </div>
+            <div class="card-footer">
+              <button type="submit" class="btn btn-primary" id="submit">提交</button>
+            </div>
+        </div>
+        <script>
+          $("#submit").click(function () {
+            let newname = $("#categorynameedit").val()
+            $.ajax({
+              type: "POST",
+              url: "/{{ adminsite.secret_route }}/category-manager/category/edit/{{ category.cateid }}",
+              contentType: "application/json;charset=UTF-8",
+              data: JSON.stringify({
+                editname: newname
+              }),
+              success: function (data) {
+                datajs = JSON.parse(data)
+                if (datajs.code == 1) {
+                  alert("即将跳转")
+                  window.location.href = "/{{ adminsite.secret_route }}/category-manager/"
+                }
+              }
+            })
+          })
+        </script>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

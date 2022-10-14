@@ -1,0 +1,54 @@
+{% extends 'admin/base.html' %}
+{% block title %}查看标签{% endblock %}
+{% block content %}
+
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <div class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1 class="m-0">标签管理</h1>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Main content -->
+  <div class="content">
+    <div class="container-fluid">
+      <div class="row">
+        <!-- 一个表格 -->
+        <div class="row">
+          <div class="col-12">
+            <!-- Default box -->
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">{{ tag.tagname }}</h3>
+                <div class="card-tools">
+                  <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                    <i class="fas fa-minus"></i>
+                  </button>
+                  <button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">
+                    <i class="fas fa-times"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="card-body">
+                标签名:{{ tag.tagname }}
+              </div>
+              <!-- /.card-body -->
+              <div class="card-footer">
+                文章数:{{ tag.has_this_article }}
+              </div>
+              <!-- /.card-footer-->
+            </div>
+            <!-- /.card -->
+        </div>
+        <!-- 表格结束 -->
+      </div>
+      <button type="button" class="btn btn-block btn-outline-primary"><a href="/{{ adminsite.secret_route }}/tag-manager/tag/edit/{{ tag.tagid }}">编辑</a></button>
+      <button type="button" class="btn btn-block btn-outline-primary btn-sm"><a href="/{{ adminsite.secret_route }}/tag-manager/tag/delete/{{ tag.tagid }}">删除</button>
+    </div> 
+  </div>
+</div>
+{% endblock %}

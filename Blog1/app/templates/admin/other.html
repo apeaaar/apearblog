@@ -1,0 +1,161 @@
+{% extends 'admin/base.html' %}
+{% block title %}标签编辑{% endblock %}
+{% block content %}
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <div class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1 class="m-0">标签编辑</h1>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Main content -->
+  <div class="content">
+    <div class="container-fluid">
+      <div class="row">
+        <!-- 卡片开始 -->
+        <div class="card card-primary">
+          <div class="card-header">
+            <h3 class="card-title">其他</h3>
+            <h3 class="card-title">网站地址:{{ site.SITE_URL }}</h3>
+            <h3 class="card-title">网站标题:{{ site.SITE_TITLE }}</h3>
+            <h3 class="card-title">ICP:{{ site.SITE_ICP }}</h3>
+            <h3 class="card-title">网站起始时间:{{ site.SITE_START_TIME }}</h3>
+            <h3 class="card-title">网站邮箱:{{ site.SITE_MAIL }}</h3>
+            <h3 class="card-title">年份:{{ site.SITE_YEAR }}</h3>
+            <h3 class="card-title">头像:{{ site.SITE_AVATAR }}</h3>
+            <h3 class="card-title">美话:{{ site.BeautifulSentence }}</h3>
+            <h3 class="card-title">网站类型中文:{{ site.SITE_TYPE_CHINESE }}</h3>
+            <h3 class="card-title">网站类型英文:{{ site.SITE_TYPE_ENGLISH }}</h3>
+          </div>
+          <!-- /.card-header -->
+          <!-- form start -->
+            <div class="card-body">
+              <div class="form-group">
+                <label for="tagNameEdit">网站地址</label>
+                <input type="text" class="form-control" id="url" placeholder="网站地址">
+              </div>
+              <div class="form-group">
+                <label for="tagNameEdit">网站标题</label>
+                <input type="text" class="form-control" id="title" placeholder="网站标题">
+              </div>
+              <div class="form-group">
+                <label for="tagNameEdit">ICP</label>
+                <input type="text" class="form-control" id="icp" placeholder="ICP">
+              </div>
+              <div class="form-group">
+                <label for="tagNameEdit">网站起始时间</label>
+                <input type="text" class="form-control" id="time" placeholder="网站起始时间">
+              </div>
+              <div class="form-group">
+                <label for="tagNameEdit">网站邮箱</label>
+                <input type="text" class="form-control" id="email" placeholder="网站邮箱">
+              </div>
+              <div class="form-group">
+                <label for="tagNameEdit">年份</label>
+                <input type="text" class="form-control" id="year" placeholder="年份">
+              </div>
+              <div class="form-group">
+                <label for="tagNameEdit">美话</label>
+                <input type="text" class="form-control" id="bs" placeholder="美话">
+              </div>
+              <div class="form-group">
+                <label for="tagNameEdit">网站类型中文</label>
+                <input type="text" class="form-control" id="stcn" placeholder="网站类型中文">
+              </div>
+              <div class="form-group">
+                <label for="tagNameEdit">网站类型英文</label>
+                <input type="text" class="form-control" id="sten" placeholder="网站类型英文">
+              </div>
+              <div class="form-group">
+                <label for="tagNameEdit">leancloud应用AppName</label>
+                <input type="text" class="form-control" id="appname" placeholder="网站类型英文">
+              </div>
+              <div class="form-group">
+                <label for="tagNameEdit">leancloud应用AppKey</label>
+                <input type="text" class="form-control" id="appkey" placeholder="网站类型英文">
+              </div>
+              <div class="form-group">
+                <label for="tagNameEdit">头像</label>
+                <input type="text" class="form-control" id="avatar" placeholder="头像">
+              </div>
+              <div class="form-group">
+                <label for="tagNameEdit">访问后台的秘密路径</label>
+                <h4 class="form-control" id="secret"></h4>
+              </div>
+              <div class="form-group">
+                <label for="tagNameEdit">网站地址</label>
+                <input type="text" class="form-control" id="url" placeholder="网站地址">
+              </div>
+            </div>
+            <div class="card-footer">
+              <button type="submit" class="btn btn-primary" id="submit">提交</button>
+            </div>
+          <script src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+          <script>
+            $("#url").val("{{ siteclass.SITE_URL }}");
+            $("#title").val("{{ siteclass.SITE_TITLE }}");
+            $("#icp").val("{{ siteclass.SITE_ICP }}");
+            $("#time").val("{{ siteclass.SITE_START_TIME }}");
+            $("#email").val("{{ siteclass.SITE_MAIL }}");
+            $("#year").val("{{ siteclass.SITE_YEAR }}");
+            $("#bs").val("{{ siteclass.BeautifulSentence }}");
+            $("#stcn").val("{{ siteclass.SITE_TYPE_ENGLISH }}");
+            $("#sten").val("{{ siteclass.SITE_TYPE_ENGLISH }}");
+            $("#appname").val("{{ siteclass.leanname }}");
+            $("#appkey").val("{{ siteclass.leankey }}");
+            $("#avatar").val("{{ siteclass.SITE_AVATAR }}")
+            $("#secret").val("{{ siteclass.secret_route }}")
+            $("#submit").click(function () {
+              let url = $("#url").val();
+              let title = $("#title").val();
+              let icp = $("#icp").val();
+              let time = $("#time").val();
+              let email = $("#email").val();
+              let year = $("#year").val();
+              let bs = $("#bs").val();
+              let stcn = $("#stcn").val();
+              let sten = $("#sten").val();
+              let appname = $("#appname").val();
+              let appkey = $("#appkey").val();
+              let avatar = $("#avatar").val()
+              $.ajax({
+                type : "POST",
+                url : "/{{ adminsite.secret_route }}",
+                contentType: 'application/json;charset=UTF-8',
+                data : JSON.stringify({
+                  url: url,
+                  title: title,
+                  icp: icp,
+                  time: time,
+                  email: email,
+                  bs: bs,
+                  stcn: stcn,
+                  sten: sten,
+                  appname: appname,
+                  appkey: appkey,
+                  avatar: avatar
+                }),
+                success : function (data) {
+                  jdata = JSON.parse(data)
+                  if (data.code == 1) {
+                    alert("即将跳转")
+                    window.location.href = "/{{ adminsite.secret_route }}/other/"
+                  } else {
+                    let error = "这是服务器捕获的异常，请进行检查：" + jdata.e
+                  }
+                }
+              })
+            })
+          </script>
+          </div>
+        </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,235 @@
+{% extends 'admin/base.html' %}
+{% block title %}标签管理{% endblock %}
+{% block assets %}
+  <!-- Google Font: Source Sans Pro -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="../../plugins/fontawesome-free/css/all.min.css">
+  <!-- daterange picker -->
+  <link rel="stylesheet" href="../../plugins/daterangepicker/daterangepicker.css">
+  <!-- iCheck for checkboxes and radio inputs -->
+  <link rel="stylesheet" href="../../plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+  <!-- Bootstrap Color Picker -->
+  <link rel="stylesheet" href="../../plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css">
+  <!-- Tempusdominus Bootstrap 4 -->
+  <link rel="stylesheet" href="../../plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+  <!-- Select2 -->
+  <link rel="stylesheet" href="../../plugins/select2/css/select2.min.css">
+  <link rel="stylesheet" href="../../plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
+  <!-- Bootstrap4 Duallistbox -->
+  <link rel="stylesheet" href="../../plugins/bootstrap4-duallistbox/bootstrap-duallistbox.min.css">
+  <!-- BS Stepper -->
+  <link rel="stylesheet" href="../../plugins/bs-stepper/css/bs-stepper.min.css">
+  <!-- dropzonejs -->
+  <link rel="stylesheet" href="../../plugins/dropzone/min/dropzone.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="../../dist/css/adminlte.min.css">
+{% endblock %}
+{% block content %}
+<!-- <style>
+  .tag-1{
+    background-color: #007bff !important; ;
+  }
+  .tag-2{
+    background-color: #6c757d !important;
+  }
+  .tag-3{
+    background-color: #17a2b8 !important;
+  }
+  .tag-4{
+    background-color: #28a745 !important;
+  }
+  .tag-5{
+    background-color: #ffc107 !important;
+  }
+  .tag-6{
+    background-color: #dc3545 !important;
+  }
+  .tag-7{
+    background-color: #000000 !important;
+  }
+  .tag-8{
+    background-color: #343a40 !important;
+  }
+  .tag-9{
+    background-color: #adb5bd !important;
+  }
+  .tag-10{
+    background-color: #f8f9fa !important;
+  }
+  .tag-11{
+    background-color: #6610f2 !important ;
+  }
+  .tag-12{
+    background-color: #3c8dbc !important;
+  }
+  .tag-13{
+    background-color: #001f3f !important;
+  }
+  .tag-14{
+    background-color: #605ca8 !important;
+  }
+  .tag-15{
+    background-color: #f012be !important;
+  }
+  .tag-16{
+    background-color: #e83e8c !important;
+  }
+  .tag-17{
+    background-color: #d81b60 !important;
+  }
+  .tag-18{
+    background-color: #ff851b !important;
+  }
+  .tag-19{
+    background-color: #01ff70 !important;
+  }
+  .tag-20{
+    background-color: #39cccc !important;
+  }
+  .tag-21{
+    background-color: #3d9970 !important;
+  }
+</style> -->
+<!-- <style>
+  .tag-1{
+      background-color: #F9EBEA;
+  }
+
+  .tagy-2{
+      background-color: #F5EEF8;
+  }
+
+  .tag-3{
+      background-color: #D5F5E3;
+  }
+
+  .tag-4{
+      background-color: #E8F8F5;
+  }
+  .tag-5{
+      background-color: #ddf9e7;
+  }
+
+  .tag-6{
+      background-color: #d2d6f8;
+  }
+
+  .tag-7{
+      background-color: #f5deba;
+  }
+
+  .tag-8{
+      background-color: #f8f6c8;
+  }
+
+  .tag-9{
+      background-color: #d8f5c1;
+  }
+
+  .tag-10{
+      background-color: #def8f8;
+  }
+</style> -->
+
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <div class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1 class="m-0">推荐管理</h1>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Main content -->
+  <div class="content">
+    <div class="container-fluid">
+      <div class="row">
+        <!-- 一个表格 -->
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card card-primary card-outline">
+              <div class="card-header">
+                <h3 class="card-title">
+                  <i class="fas fa-edit"></i>
+                  推荐管理
+                </h3>
+              </div>
+              <div class="card-body pad table-responsive">
+                <h1>文章:{{ title }}</h1>
+                  <div class="from-group">
+                    <div class="icheck-primary d-inline">
+                      <div class="icheck-primary d-inline">
+                        <input id="checkboxPrimary3" id="checkboxre" name="postcheck" type="checkbox"{% if thisisre %} checked="checked"{% endif %}>
+                        <label for="checkboxPrimary3">
+                          推荐
+                        </label>
+                      </div>
+                      <button type="submit" class="btn btn-primary btn-block" id="postrebutton">提交</button>
+                  </div>
+                  <script>
+                    $("#postrebutton").click(function () {
+                      let ischeck = $("#checkboxre").is(":checked");
+                      if (ischeck=true) {
+                        $.ajax({
+                          type: "POST",
+                          url: "/{{ adminsite.secret_route }}/post-manager/post/recommend/{{ postid }}",
+                          contentType: "application/json;charset=UTF-8",
+                          data: JSON.stringify({
+                            isre: 1
+                          }),
+                          success: function (data) {
+                            let jdata = JSON.parse(data);
+                            if (jdata.ok==1) {
+                              alert("即将跳转")
+                              window.location.href = "/{{ adminsite.secret_route }}/post-manager/post/1/"
+                            } else {
+                              alert("服务端出现问题啦！")
+                              alert(jdata.msg)
+                            }
+                          }
+                        })
+                      }
+                    });
+                  </script>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- 表格结束 -->
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+{% block date %}
+<!-- jQuery -->
+<script src="../../plugins/jquery/jquery.min.js"></script>
+<!-- Bootstrap 4 -->
+<script src="../../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- Select2 -->
+<script src="../../plugins/select2/js/select2.full.min.js"></script>
+<!-- Bootstrap4 Duallistbox -->
+<script src="../../plugins/bootstrap4-duallistbox/jquery.bootstrap-duallistbox.min.js"></script>
+<!-- InputMask -->
+<script src="../../plugins/moment/moment.min.js"></script>
+<script src="../../plugins/inputmask/jquery.inputmask.min.js"></script>
+<!-- date-range-picker -->
+<script src="../../plugins/daterangepicker/daterangepicker.js"></script>
+<!-- bootstrap color picker -->
+<script src="../../plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js"></script>
+<!-- Tempusdominus Bootstrap 4 -->
+<script src="../../plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+<!-- Bootstrap Switch -->
+<script src="../../plugins/bootstrap-switch/js/bootstrap-switch.min.js"></script>
+<!-- BS-Stepper -->
+<script src="../../plugins/bs-stepper/js/bs-stepper.min.js"></script>
+<!-- dropzonejs -->
+<script src="../../plugins/dropzone/min/dropzone.min.js"></script>
+<!-- AdminLTE App -->
+<script src="../../dist/js/adminlte.min.js"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="../../dist/js/demo.js"></script>
+{% endblock %}

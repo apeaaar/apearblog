@@ -1,0 +1,105 @@
+{% extends 'admin/base.html' %}
+{% block title %}文章管理{% endblock %}
+{% block content %}
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <div class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1 class="m-0">文章管理</h1>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Main content -->
+  <section class="content">
+    <div class="container-fluid">
+      <!-- SELECT2 EXAMPLE -->
+      <div class="card card-default">
+        <!-- /.card-header -->
+        <div class="card-body">
+          <div class="row">
+            </div>  
+              <!-- 一个表格 -->
+              <table class="table table-bordered">
+                <thead>
+                  <tr>
+                    <th>序号</th>
+                    <th>文章名</th>
+                    <th>日期，标签和分类</th>
+                    <th>操作</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for i in blog.postlist %}
+                  <tr>
+                    <th scope="row">{{ i.postnum }}</th>
+                    <td>{{ i.postname }}</td>
+                    <td>
+                      <h6>日期：{{ i.postdate }}</h6>
+                      <h6>标签：{% for x in i.posttag %}<a href="/{{ adminsite.secret_route }}/tag-manager/tag/id/{{ i.tagid }}">{{ x.tagname }}</a>{% endfor %}</h6>
+                      <h6>分类：<a href="/{{ adminsite.secret_route }}/category-manager/category/id/{{ i.postcategory.catename }}">{{ i.postcategory.cateid }}</a></h6>
+                    </td>
+                    <td>
+                      <!-- <a href="/{{ adminsite.secret_route }}/post-manager/post/id/{{ i.id }}"><button type="button" class="btn btn-block btn-info btn-xs">详情</button></a> -->
+                      <a href="/{{ adminsite.secret_route }}/post-manager/post/delete/{{ i.postid }}"><button type="button" class="btn btn-block btn-danger btn-xs">删除</button></a>
+                      <a href="/{{ adminsite.secret_route }}/post-manager/post/edit/{{ i.postid }}"><button type="button" class="btn btn-block btn-primary btn-xs">编辑</button></a>
+                      <a href="/{{ adminsite.secret_route }}/post-manager/post/recommend/{{ i.postid }}"><button type="button" class="btn btn-block btn-primary btn-xs">推荐</button></a>
+                    </td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+              <!-- 表格结束 -->
+            </div>
+            <div class="row">
+              <div class="col-sm-12 col-md-5">
+                <div class="dataTables_info" id="example2_info">至多显示9个结果</div>
+              </div><div class="col-sm-12 col-md-7">
+                <div class="dataTables_paginate paging_simple_numbers" id="example2_paginate">
+                  <ul class="pagination">
+                    <li class="paginate_button page-item previous{% if blog.has_previous %} active{% else %} disabled{% endif %}" id="example2_previous">
+                      <a href="/{{ adminsite.secret_route }}/post-manager/post/{{ blog.page_now_num - 1 }}" aria-controls="example2" data-dt-idx="0" tabindex="0" class="page-link"><i class="fa fa-arrow-left"></i></a>
+                    </li>
+                    {% if blog.post_page <=7 %}
+                      {% for i in blog.post_page_list %}
+                      <li class="paginate_button page-item "><a href="/{{ adminsite.secret_route }}/post-manager/post/{{ i }}" aria-controls="example2" data-dt-idx="{{ i }}" tabindex="0" class="page-link">{{ i }}</a>
+                      </li>
+                      {% endfor %}
+                    {% else %}
+                      {% for i in blog.post_page_list %}
+                      {% if i == "anymore" %}
+                        <li class="paginate_button page-item "><a href="#" aria-controls="example2" data-dt-idx="{{ i + 1 }}" tabindex="0" class="page-link"><i class="fa fa-ellipsis-h"></i></a>
+                        </li>
+                        {% else %}
+                        <li class="paginate_button page-item "><a href="/{{ adminsite.secret_route }}/post-manager/post/{{ i }}" aria-controls="example2" data-dt-idx="{{ i }}" tabindex="0" class="page-link">{{ i }}</a>
+                        </li>
+                        {% endif %}
+                      {% endfor %}
+                    {% endif %}
+                    <li class="paginate_button page-item next{% if blog.has_next %} active{% else %} disabled{% endif %}" id="example2_next">
+                      <a href="/{{ adminsite.secret_route }}/post-manager/post/{{ blog.page_now_num + 1 }}" aria-controls="example2" data-dt-idx="{{ blog.post_page + 1 }}" tabindex="0" class="page-link"><i class="	fa fa-arrow-right"></i></a>
+                    </li>
+                  </ul>
+                </div>
+          <!-- /.row -->
+        </div>
+        <!-- /.card-body -->
+      </div>
+    </div>
+                  </div>
+                </div>
+          </div>
+          <!-- /.card -->
+
+          <!-- Bootstrap Switch -->
+          <!-- /.card -->
+        </div>
+        <!-- /.col (right) -->
+      </div>
+      
+    <!-- /.container-fluid -->
+  </section>
+</div>
+{% endblock %}

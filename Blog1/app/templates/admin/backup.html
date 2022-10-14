@@ -1,0 +1,68 @@
+{% extends 'admin/base.html' %}
+{% block title %}标签编辑{% endblock %}
+{% block content %}
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <div class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1 class="m-0">标签编辑</h1>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Main content -->
+  <div class="content">
+    <div class="container-fluid">
+      <div class="row">
+        <!-- 卡片开始 -->
+        <div class="card card-primary">
+          <div class="card-header">
+            <h3 class="card-title">备份&恢复</h3>
+            <h3 class="card-title">分类:{{ catecount }}个</h3>
+            <h3 class="card-title">标签:{{ tagcount }}个</h3>
+            <h3 class="card-title">文章:{{ postcount }}</h3>
+          </div>
+          <!-- /.card-header -->
+          <!-- form start -->
+            <div class="card-body">
+            </div>
+          <script src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+          <script>
+              $.ajax({
+                type : "POST",
+                url : "/{{ adminsite.secret_route }}",
+                contentType: 'application/json;charset=UTF-8',
+                data : JSON.stringify({
+                  url: url,
+                  title: title,
+                  icp: icp,
+                  time: time,
+                  email: email,
+                  bs: bs,
+                  stcn: stcn,
+                  sten: sten,
+                  appname: appname,
+                  appkey: appkey,
+                  avatar: avatar
+                }),
+                success : function (data) {
+                  jdata = JSON.parse(data)
+                  if (data.code == 1) {
+                    alert("即将跳转")
+                    window.location.href = "/{{ adminsite.secret_route }}/other/"
+                  } else {
+                    let error = "这是服务器捕获的异常，请进行检查：" + jdata.e
+                  }
+                }
+              })
+          </script>
+          </div>
+        </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

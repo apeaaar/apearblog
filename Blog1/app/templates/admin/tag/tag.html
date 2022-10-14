@@ -1,0 +1,161 @@
+{% extends 'admin/base.html' %}
+{% block title %}标签管理{% endblock %}
+{% block content %}
+<!-- <style>
+  .tag-1{
+    background-color: #007bff !important; ;
+  }
+  .tag-2{
+    background-color: #6c757d !important;
+  }
+  .tag-3{
+    background-color: #17a2b8 !important;
+  }
+  .tag-4{
+    background-color: #28a745 !important;
+  }
+  .tag-5{
+    background-color: #ffc107 !important;
+  }
+  .tag-6{
+    background-color: #dc3545 !important;
+  }
+  .tag-7{
+    background-color: #000000 !important;
+  }
+  .tag-8{
+    background-color: #343a40 !important;
+  }
+  .tag-9{
+    background-color: #adb5bd !important;
+  }
+  .tag-10{
+    background-color: #f8f9fa !important;
+  }
+  .tag-11{
+    background-color: #6610f2 !important ;
+  }
+  .tag-12{
+    background-color: #3c8dbc !important;
+  }
+  .tag-13{
+    background-color: #001f3f !important;
+  }
+  .tag-14{
+    background-color: #605ca8 !important;
+  }
+  .tag-15{
+    background-color: #f012be !important;
+  }
+  .tag-16{
+    background-color: #e83e8c !important;
+  }
+  .tag-17{
+    background-color: #d81b60 !important;
+  }
+  .tag-18{
+    background-color: #ff851b !important;
+  }
+  .tag-19{
+    background-color: #01ff70 !important;
+  }
+  .tag-20{
+    background-color: #39cccc !important;
+  }
+  .tag-21{
+    background-color: #3d9970 !important;
+  }
+</style> -->
+<!-- <style>
+  .tag-1{
+      background-color: #F9EBEA;
+  }
+
+  .tagy-2{
+      background-color: #F5EEF8;
+  }
+
+  .tag-3{
+      background-color: #D5F5E3;
+  }
+
+  .tag-4{
+      background-color: #E8F8F5;
+  }
+  .tag-5{
+      background-color: #ddf9e7;
+  }
+
+  .tag-6{
+      background-color: #d2d6f8;
+  }
+
+  .tag-7{
+      background-color: #f5deba;
+  }
+
+  .tag-8{
+      background-color: #f8f6c8;
+  }
+
+  .tag-9{
+      background-color: #d8f5c1;
+  }
+
+  .tag-10{
+      background-color: #def8f8;
+  }
+</style> -->
+
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <div class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1 class="m-0">标签管理</h1>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Main content -->
+  <div class="content">
+    <div class="container-fluid">
+      <div class="row">
+        <!-- 一个表格 -->
+        <div class="row">
+          <table class="table table-bordered table-hover">
+            <thead>
+              <tr>
+                <th>序号</th>
+                <th>标签名</th>
+                <th>日期</th>
+                <th>操作</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for i in tagset %}
+              <tr>
+                <th scope="row">{{ i.tagid }}</th>
+                <td>{{ i.tagname }}</td>
+                <td>
+                  <h6>日期：{{ i.tagtime }}</h6>
+                </td>
+                <td>
+                  <a href="/{{ adminsite.secret_route }}/tag-manager/tag/{{ i.tagid }}"><button type="button" class="btn btn-block btn-info btn-xs">详情</button></a>
+                  <a href="/{{ adminsite.secret_route }}/tag-manager/tag/delete/{{ i.tagid }}"><button type="button" class="btn btn-block btn-danger btn-xs">删除</button></a>
+                  <a href="/{{ adminsite.secret_route }}/tag-manager/tag/edit/{{ i.tagid }}"><button type="button" class="btn btn-block btn-primary btn-xs">编辑</button></a>
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+        </div>
+        <!-- 表格结束 -->
+      </div>
+      <button type="button" class="btn btn-block btn-outline-primary"><a href="/{{ adminsite.secret_route }}/tag-manager/tag/new/">创建标签</a></button>
+    </div>
+  </div>
+</div>
+{% endblock %}

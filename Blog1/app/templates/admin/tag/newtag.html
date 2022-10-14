@@ -1,0 +1,63 @@
+{% extends 'admin/base.html' %}
+{% block title %}标签编辑{% endblock %}
+{% block content %}
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <div class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1 class="m-0">创建标签</h1>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Main content -->
+  <div class="content">
+    <div class="container-fluid">
+      <div class="row">
+        <!-- 卡片开始 -->
+        <div class="card card-primary">
+          <div class="card-header">
+            <h3 class="card-title">添加标签</h3>
+          </div>
+          <!-- /.card-header -->
+          <!-- form start -->
+            <div class="card-body">
+              <div class="form-group">
+                <label for="tagNameEdit">标签名</label>
+                <input type="text" class="form-control" id="tagNameNew" placeholder="标签名">
+              </div>
+            </div>
+            <div class="card-footer">
+              <button class="btn btn-primary" id="tagnewsubmit">提交</button>
+            </div>
+          <script>
+            $("#tagnewsubmit").click(function () {
+              let newtagname = $("#tagNameNew").val()
+              $.ajax({
+                type: "POST",
+                contentType: "application/json;charset=UTF-8",
+                url: "/{{ adminsite.secret_route }}/tag-manager/tag/new/",
+                data: JSON.stringify({
+                  newtagname: newtagname
+                }),
+                success: function (data) {
+                  jdata = JSON.parse(data)
+                  if (jdata.code == 1) {
+                    alert("即将跳转")
+                    window.location.href = "/{{ adminsite.secret_route }}/tag-manager/"
+                  } else {
+                    alert("服务端疑似出现错误！")
+                    alert(jdata.msg)
+                  }
+                }
+              })
+            })
+          </script>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
