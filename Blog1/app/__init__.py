@@ -1,14 +1,5 @@
 from flask import Flask, redirect
 import os
-import logging
-
-
-logging.basicConfig(level=logging.DEBUG,
-                    format='%(asctime) -%(levelname)-%(levelno) message:%(message)',
-                    datefmt='%a, %d %b %Y %H:%M:%S')
-
-logformatter = "%(asctime) -%(levelname)-%(levelno) message:%(message)"
-
 fapp = Flask(__name__)
 
 filef = open("app/file/donotdel.txt", "w+")

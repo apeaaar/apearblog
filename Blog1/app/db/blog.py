@@ -142,6 +142,7 @@ def querycategoryblog(category_id):
         bloglist.append(ablog)
     return bloglist
 
+
 def queryapost(id):
     ablog = 1
     for blog in blogField.objects(blogid=id):

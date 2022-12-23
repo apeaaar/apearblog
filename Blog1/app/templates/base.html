@@ -11,15 +11,15 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <title>{% block title %}{% endblock %} TaoYan.xyz</title>
     <link rel="icon" type="image/png" href="https://s10.aconvert.com/convert/p3r68-cdx67/a67zk-48797-001.ico">
-    <link rel="stylesheet" type="text/css" href="/static/css/all.css">
-    <link rel="stylesheet" type="text/css" href="/static/css/materialize.min.css">
-    <link rel="stylesheet" type="text/css" href="/static/css/animate.min.css">
-    <link rel="stylesheet" type="text/css" href="/static/css/lightgallery.min.css">
-    <link rel="stylesheet" type="text/css" href="/static/css/matery.css">
-    <link rel="stylesheet" type="text/css" href="/static/css/my.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/taoyan-game/blognocdn/css/all.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/taoyan-game/blognocdn/css/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/taoyan-game/blognocdn/css/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/taoyan-game/blognocdn/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/taoyan-game/blognocdn/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/taoyan-game/blognocdn/css/my.css">
     {% block css %}{% endblock %}
     {% block js %}{% endblock %}
-    <script src="/static/js/jquery-2.2.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
 
 </head>
 <body>
@@ -29,7 +29,7 @@
     }
 </style>
 <header class="navbar-fixed">
-    <nav id="headNav" class="bg-color nav-transparent blurnav">
+    <nav id="headNav" class="nav-transparent blurnav">
         <div id="navContainer" class="nav-wrapper head-container">
             <div class="brand-logo">
                 <a href="/" class="waves-effect waves-light">
@@ -248,7 +248,7 @@
     </div>
 </div>
 
-<script src="/static/js/search.js"></script>
+<!-- <script src="/static/js/search.js"></script> -->
 <script type="text/javascript">
     /**
      * @desc: 获取cookie字段
@@ -350,15 +350,17 @@
     </a>
 </div>
 
-<script src="/static/js/materialize.min.js"></script>
-<script src="/static/js/masonry.pkgd.min.js"></script>
-<script src="/static/js/scrollProgress.min.js"></script>
-<script src="/static/js/lightgallery-all.min.js"></script>
-<script src="/static/js/matery.js"></script>
-<script src="/static/js/clicklove.js" async="async"></script>
-<script src="/static/js/prism.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/taoyan-game/blognocdn/js/materialize.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/taoyan-game/blognocdn/js/masonry.pkgd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/taoyan-game/blognocdn/js/scrollProgress.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/taoyan-game/blognocdn/js/lightgallery-all.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/taoyan-game/blognocdn/js/matery.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/taoyan-game/blognocdn/js/clicklove.js" async="async"></script>
+<script src="https://cdn.jsdelivr.net/gh/taoyan-game/blognocdn/js/prism.js"></script>
 <script>
-    $('.bg-cover').css('background-image', 'url(/static/image/0.jpg)');
+    $('.bg-cover').css('background-image', 'url(https://cdn.jsdelivr.net/gh/taoyan-game/blognocdn/image/0.jpg)');
 </script>
+{% block anyblock %}
+{% endblock %}
 </body>
 </html>

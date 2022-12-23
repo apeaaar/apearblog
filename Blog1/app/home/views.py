@@ -7,13 +7,6 @@ from app.db.blog import *
 from app.db.blogclass import articles, randomclass
 from app.db import mongo
 from app.tools.request import *
-import random
-import logging
-
-# logging config
-logging.basicConfig(level=logging.DEBUG,
-                    format='%(asctime) -%(levelname)-%(levelno) message:%(message)',
-                    datefmt='%a, %d %b %Y %H:%M:%S')
 
 
 @fapp.route("/")
@@ -24,7 +17,7 @@ def HomeView():
         all_articles = articles(1)
         site = getSite()
         allpages = blog.getBlogPages()
-        logging.info("首页访问 IP:%s" % request.remote_addr)
+        fapp.logger.info("首页访问 IP:%s" % request.remote_addr)
         return render_template(
             "index.html",
             site=site,
@@ -40,7 +33,7 @@ def ArchiveFView():
     if checkRequest():
         all_articles = articles(number=int(1))
         site = getSite()
-        logging.info("文章列表 固定第一页 IP:%s" % request.remote_addr)
+        fapp.logger.info("文章列表 固定第一页 IP:%s" % request.remote_addr)
         return render_template(
             "archive.html",
             site=site,
@@ -57,7 +50,7 @@ def ArchiveView(nowsnumber):
         if allpages >= nowsnumber:
             all_articles = articles(number=int(nowsnumber))
             site = getSite()
-            logging.info("文章列表 第%d页 IP:%s" % nowsnumber, request.remote_addr)
+            fapp.logger.info("文章列表 第%d页 IP:%s" % (nowsnumber, request.remote_addr))
             return render_template(
                 "archive.html",
                 site=site,
@@ -77,7 +70,7 @@ def ArticleView(postid):
         for i in mongo.siteContentsField.objects(objectsid=1):
             leanname = i.leanname
             leankey = i.leankey
-        logging.info("文章 ID:%d IP:%s" % postid, request.remote_addr)
+        fapp.logger.info("文章 ID:%d IP:%s" % (postid, request.remote_addr))
         return render_template(
             "article.html",
             site=site,
@@ -94,7 +87,7 @@ def TagView():
     if checkRequest():
         site = getSite()
         tags = getaTagList()
-        logging.info("标签列表 固定第一页 IP:%s" % request.remote_addr)
+        fapp.logger.info("标签列表 固定第一页 IP:%s" % request.remote_addr)
         return render_template(
             "tag.html",
             site=site,
@@ -108,7 +101,7 @@ def TagArticleView(tagid, pages):
     site = getSite()
     tags = getaTagList()
     article = TagArticles(pages, tagid)
-    logging.info("标签文章列表 第%d页 IP:%s" % tagid, request.remote_addr)
+    fapp.logger.info("标签文章列表 第%d页 IP:%s" % (tagid, request.remote_addr))
     return render_template(
         "article_tag.html",
         site=site,
@@ -123,7 +116,7 @@ def CategoryView():
     if checkRequest():
         site = getSite()
         categories = getaCategoryList()
-        logging.info("分类列表 IP:%s" % request.remote_addr)
+        fapp.logger.info("分类列表 IP:%s" % request.remote_addr)
         return render_template(
             "category.html",
             site=site,
@@ -136,7 +129,7 @@ def CategoryArticleView(cateid, pages):
     site = getSite()
     categories = getaCategoryList()
     article = CateArticles(pages, cateid)
-    logging.info("分类文章列表 第%d页 IP:%s" % cateid, request.remote_addr)
+    fapp.logger.info("分类文章列表 第%d页 IP:%s" % (cateid, request.remote_addr))
     return render_template(
         "article_tag.html",
         site=site,

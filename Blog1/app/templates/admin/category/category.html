@@ -37,8 +37,8 @@
                 </td>
                 <td>
                   <a href="/{{ adminsite.secret_route }}/category-manager/category/{{ i.categoryid }}/"><button type="button" class="btn btn-block btn-info btn-xs">详情</button></a>
-                  <a href="/{{ adminsite.secret_route }}/category-manager/category/delete/{{ i.categoryid }}/"><button type="button" class="btn btn-block btn-danger btn-xs">删除</button></a>
-                  <a href="/{{ adminsite.secret_route }}/category-manager/category/edit/{{ i.categoryid }}/"><button type="button" class="btn btn-block btn-primary btn-xs">编辑</button></a>
+                  <a href="/{{ adminsite.secret_route }}/category-manager/delete/{{ i.categoryid }}/"><button type="button" class="btn btn-block btn-danger btn-xs">删除</button></a>
+                  <a href="/{{ adminsite.secret_route }}/category-manager/edit/{{ i.categoryid }}/"><button type="button" class="btn btn-block btn-primary btn-xs">编辑</button></a>
                 </td>
               </tr>
               {% endfor %}

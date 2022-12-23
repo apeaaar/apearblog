@@ -15,12 +15,7 @@ from flask import redirect
 from flask import flash
 from flask import request
 import json
-import logging
 import os
-# logging config
-logging.basicConfig(level=logging.DEBUG,
-                    format='%(asctime) -%(levelname)-%(levelno) message:%(message)',
-                    datefmt='%a, %d %b %Y %H:%M:%S')
 
 
 @fapp.route("/xxxx/admin/login/", methods=["GET", "POST"])
@@ -32,7 +27,7 @@ def AdminLoginView():
         data["password"] = loginform.password.data
         if db.checkadmin(loginform.name.data, loginform.password.data):
             session["adminid"] = db.getAdminID(loginform.name.data)
-            logging.info("后台登录成功 IP:{}".format(request.remote_addr))
+            fapp.logger.info("后台登录成功 IP:{}".format(request.remote_addr))
             return redirect("/" + db.getAdminSecretRoute() + "/home/")
         else:
             return render_template(
@@ -50,7 +45,7 @@ def AdminLoginView():
 def AdminHomeView(secret_route):
     if secret_route == db.getAdminSecretRoute():
         adminsite = db.adminsite("home")
-        logging.info("后台首页访问！ IP:{}".format(request.remote_addr))
+        fapp.logger.info("后台首页访问！ IP:{}".format(request.remote_addr))
         return render_template(
             "admin/home.html",
             adminsite=adminsite,
@@ -66,7 +61,7 @@ def AdminPostHomeView(secret_route):
     if secret_route == db.getAdminSecretRoute():
         adminsite = db.adminsite("post")
         blog = db.adminPostManager()
-        logging.info("后台文章主页访问！ IP:{}".format(request.remote_addr))
+        fapp.logger.info("后台文章主页访问！ IP:{}".format(request.remote_addr))
         return render_template(
             "admin/post/post.html",
             adminsite=adminsite,
@@ -83,7 +78,7 @@ def AdminPostManagerView(secret_route, pages):
     if secret_route == db.getAdminSecretRoute():
         adminsite = db.adminsite("post")
         blog = db.adminPostList(pages)
-        logging.info("后台 IP:{}".format(request.remote_addr))
+        fapp.logger.info("后台 IP:{}".format(request.remote_addr))
         return render_template(
             "admin/post/postlist.html",
             adminsite=adminsite,
@@ -98,7 +93,7 @@ def AdminPostManagerView(secret_route, pages):
 def AdminPostNewView(secret_route):
     if secret_route == db.getAdminSecretRoute():
         adminsite = db.adminsite("post")
-        logging.info("后台文章新建界面访问 IP:{}".format(request.remote_addr))
+        fapp.logger.info("后台文章新建界面访问 IP:{}".format(request.remote_addr))
         return render_template(
             "admin/post/newpost.html",
             adminsite=adminsite,
@@ -114,7 +109,7 @@ def AdminPostNewView(secret_route):
 def AdminPostNewData(secret_route):
     if secret_route == db.getAdminSecretRoute():
         try:
-            logging.info("后台文章新建API访问 IP:{}".format(request.remote_addr))
+            fapp.logger.info("后台文章新建API访问 IP:{}".format(request.remote_addr))
             bdatajs = request.data
             bdatajs = bdatajs.decode("utf-8")
             datajs = json.loads(str(bdatajs))
@@ -148,7 +143,7 @@ def AdminPostEditView(secret_route, postid):
         postcontext = ""
         for i in mongo.blogField.objects(blogid=postid):
             postcontext = i.blogcontents
-        logging.info("后台文章编辑界面访问 IP:{}".format(request.remote_addr))
+        fapp.logger.info("后台文章编辑界面访问 IP:{}".format(request.remote_addr))
         return render_template(
             "admin/post/editpost.html",
             adminsite=adminsite,
@@ -166,7 +161,7 @@ def AdminPostEditView(secret_route, postid):
 def AdminPostEditData(secret_route):
     if secret_route == db.getAdminSecretRoute():
         try:
-            logging.info("后台文章编辑API访问 IP:{}".format(request.remote_addr))
+            fapp.logger.info("后台文章编辑API访问 IP:{}".format(request.remote_addr))
             bdatajs = request.data
             bdatajs = bdatajs.decode("utf-8")
             datajs = json.loads(str(bdatajs))
@@ -209,7 +204,7 @@ def AdminPostDeleteView(secret_route, postid):
                 bdatas = request.data
                 datas = bdatas.decode("utf-8")
                 jdata = json.loads(str(datas))
-                logging.info("后台文章删除API访问 IP:{}".format(request.remote_addr))
+                fapp.logger.info("后台文章删除API访问 IP:{}".format(request.remote_addr))
                 if str(jdata["isok"]) == "1":
                     mongo.blogField.objects(blogid=postid).delete()
                     return json.dumps(dict(isok=1))
@@ -218,7 +213,7 @@ def AdminPostDeleteView(secret_route, postid):
             except Exception as e:
                 print(str(e))
                 return json.dumps(dict(isok=0, msg=str(e)))
-        logging.info("后台文章删除界面删除 IP:{}".format(request.remote_addr))
+        fapp.logger.info("后台文章删除界面删除 IP:{}".format(request.remote_addr))
         return render_template(
             "admin/post/deletepost.html",
             postname=postname,
@@ -244,14 +239,14 @@ def AdminPostRecommendView(secret_route, postid):
         if request.method == "POST":
             bdata = request.data
             jdata = json.loads(bdata.decode("utf-8"))
-            logging.info("后台文章推荐API访问 IP:{}".format(request.remote_addr))
+            fapp.logger.info("后台文章推荐API访问 IP:{}".format(request.remote_addr))
             if str(jdata["isre"]) == "1":
                 post = mongo.blogField.objects(blogid=postid).get()
                 post.blog_is_recommend = 1
                 post.save()
                 return json.dumps(dict(ok=1))
             return json.dumps(dict(ok=0, msg=str("abab")))
-        logging.info("后台文章推荐界面访问 IP:{}".format(request.remote_addr))
+        fapp.logger.info("后台文章推荐界面访问 IP:{}".format(request.remote_addr))
         return render_template(
             "admin/post/repostwatch.html",
             title=posttitle,
@@ -270,7 +265,7 @@ def AdminTagListView(secret_route):
     if secret_route == db.getAdminSecretRoute():
         tagset = mongo.blogTagField.objects().all()
         adminsite = db.adminsite("tag")
-        logging.info("后台标签界面访问 IP:{}".format(request.remote_addr))
+        fapp.logger.info("后台标签界面访问 IP:{}".format(request.remote_addr))
         return render_template(
             "admin/tag/tag.html",
             tagset=tagset,
@@ -396,16 +391,16 @@ def AdminCategoryNewView(secret_route):
         if request.method == "POST":
             datajs = json.loads(str(request.data.decode("utf-8")))
             blogfunc.blogNewCategory(datajs["catename"])
-            return redirect("/" + db.getAdminSecretRoute() + "/category-manager/")
+            return json.dumps(dict(code=1,ok=1))
         return render_template(
             "admin/category/newcategory.html",
-            adminsite=adminsite,
+            adminsite=adminsite
         )
     else:
         return redirect("/errorpage"), 404
 
 
-@fapp.route("/<secret_route>/category-manager/category/edit/<int:cateid>", methods=["GET", "POST"])
+@fapp.route("/<secret_route>/category-manager/category/edit/<int:cateid>/", methods=["GET", "POST"])
 @db.checkAdmin
 def AdminCategoryEditView(secret_route, cateid):
     if secret_route == db.getAdminSecretRoute():
@@ -427,7 +422,7 @@ def AdminCategoryEditView(secret_route, cateid):
         return redirect("/errorpage"), 404
 
 
-@fapp.route("/<secret_route>/category-manager/delete/<int:cateid>", methods=["GET", "POST"])
+@fapp.route("/<secret_route>/category-manager/delete/<int:cateid>/", methods=["GET", "POST"])
 @db.checkAdmin
 def AdminCategoryDeleteView(secret_route, cateid):
     if secret_route == db.getAdminSecretRoute():
@@ -436,11 +431,11 @@ def AdminCategoryDeleteView(secret_route, cateid):
         category = blogclass.categoryclass(cateid)
         if request.method == "POST":
             mongo.blogCategoryField.objects(categoryid=cateid).delete()
+            return json.dumps(dict(code=1,ok=1))
         return render_template(
             "admin/category/deletecategory.html",
             adminsite=adminsite,
-            category=category,
-            form=form
+            category=category
         )
     else:
         return redirect("/errorpage"), 404

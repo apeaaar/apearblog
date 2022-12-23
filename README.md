@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Blog1
 
 ![Flask](https://img.shields.io/badge/Flask-1.1.4-brightgreen)
@@ -11,3 +12,7 @@
 - 数据库使用MongoDB
 - 后台模板选择BootStrap主题模板——AdminLTE
 - 评论功能使用[Valine](https://valine.js.org/)
+=======
+# apearblog
+自己的blog
+>>>>>>> f8ce7263c5b1d63632cebc61197e8282605dc7d7

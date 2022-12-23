@@ -54,7 +54,8 @@
         </div>
         <script>
           $("#submit").click(function () {
-            if ("{{ category.catename }}"==$("#catename")) {
+            console.log({{ category.cateid }})
+            if ( "{{ category.catename }}" === $("#catename").val()) {
               $.ajax({
                 type: "POST",
                 url: "/{{ adminsite.secret_route }}/category-manager/delete/{{ category.cateid }}/",

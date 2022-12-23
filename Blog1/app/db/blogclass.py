@@ -69,7 +69,7 @@ class categoryclass:
     catetime = 0
     has_this_article = 1
     def __init__(self,cateid):
-        self.id = cateid
+        self.cateid = cateid
         for i in blogCategoryField.objects(categoryid=cateid):
             self.catename = i.categoryname
             self.catetime = i.categorytime

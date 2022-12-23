@@ -103,26 +103,28 @@
         <option value="bj">北京</option>
         <option value="sh">上海</option>
       </select> -->
-      <hr>
       </div>
-      <hr>
-      <div class="editormd" id="post">
-        <textarea>{{ editspost }}</textarea>
-      </div>
+      <div class="editormd" id="post"></div>
       <input type="submit" class="btn btn-primary btn-block" placeholder="提交" id="postsubmit">
     </form>
   <script src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
   <script src="/static/admin/editormd/editormd.min.js"></script>
   <script type="text/javascript">
       var mdEditor;
-      $(function() {
-          mdEditor = editormd("post", {
-              width   : "100%",
-              height  : 900,
-              syncScrolling : "single",
-              path    : "/static/admin/editormd/lib/"
-          });
-      });
+      // $(function() {
+      //     mdEditor = editormd("#post", {
+      //         width   : "100%",
+      //         width   : "100%",
+      //         syncScrolling : "single",
+      //         path    : "/static/admin/editormd/lib/"
+      //     });
+      // });
+      mdEditor = editormd("post", {
+        width   : "100%",
+        height   : 740,
+        syncScrolling : "single",
+        path    : "/static/admin/editormd/lib/"
+      })
       $("#postsubmit").click(function() {
           var post_title = $("#posttitle").val();
           var post_desc = $("#postdesc").val();
@@ -172,19 +174,19 @@
 {% endblock %}
 {% block date %}
 <!-- jQuery -->
-<script src="/static/admin/plugins/jquery/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/taoyan-game/blognocdn/admin/plugins/jquery/jquery.min.js"></script>
 <!-- Bootstrap 4 -->
-<script src="/static/admin/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/taoyan-game/blognocdn/admin/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- Select2 -->
-<script src="/static/admin/plugins/select2/js/select2.js"></script>
-<script src="/static/admin/plugins/select2/js/i18n/zh-CN.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/taoyan-game/blognocdn/admin/plugins/select2/js/select2.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/taoyan-game/blognocdn/admin/plugins/select2/js/i18n/zh-CN.js"></script>
 <!-- Bootstrap4 Duallistbox -->
-<script src="/static/admin/plugins/bootstrap4-duallistbox/jquery.bootstrap-duallistbox.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/taoyan-game/blognocdn/admin/plugins/bootstrap4-duallistbox/jquery.bootstrap-duallistbox.min.js"></script>
 <!-- InputMask -->
-<script src="/static/admin/plugins/moment/moment.min.js"></script>
-<script src="/static/admin/plugins/inputmask/jquery.inputmask.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/taoyan-game/blognocdn/admin/plugins/moment/moment.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/taoyan-game/blognocdn/admin/plugins/inputmask/jquery.inputmask.min.js"></script>
 <!-- AdminLTE App -->
-<script src="/static/admin/dist/js/adminlte.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/taoyan-game/blognocdn/admin/dist/js/adminlte.min.js"></script>
 <script>
   $(function () {
     //Initialize Select2 Elements
